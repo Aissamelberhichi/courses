@@ -2,6 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Cette application nécessite l'accès à la localisation pour vous notifier lorsque vous êtes à proximité de vos magasins favoris.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Cette application nécessite l'accès à la localisation en arrière-plan pour vous notifier lorsque vous êtes à proximité de vos magasins favoris.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Cette application nécessite l'accès à la localisation pour vous notifier lorsque vous êtes à proximité de vos magasins favoris.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Cette application nécessite l'accès à la localisation pour vous notifier lorsque vous êtes à proximité de vos magasins favoris.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Cette application nécessite l'accès à la localisation en arrière-plan pour vous notifier lorsque vous êtes à proximité de vos magasins favoris.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Cette application nécessite l'accès à la localisation pour vous notifier lorsque vous êtes à proximité de vos magasins favoris.</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>

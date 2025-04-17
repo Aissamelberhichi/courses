@@ -1,16 +1,83 @@
-# coursesv1
+# Application de Liste de Courses avec Géolocalisation
 
-A new Flutter project.
+Application mobile Flutter permettant de gérer des listes de courses avec notifications de proximité des magasins favoris.
 
-## Getting Started
+## Fonctionnalités
 
-This project is a starting point for a Flutter application.
+- Authentification utilisateur (inscription/connexion)
+- Gestion de plusieurs listes de courses
+- Ajout, modification et suppression d'articles
+- Organisation des articles par catégorie
+- Marquage des articles comme achetés
+- Gestion des magasins favoris avec géolocalisation
+- Notifications de proximité (500m) des magasins favoris
 
-A few resources to get you started if this is your first Flutter project:
+## Configuration requise
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Flutter SDK
+- Firebase project avec:
+  - Authentication
+  - Cloud Firestore
+- Clé API Google Maps
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+
+1. Cloner le projet
+2. Installer les dépendances :
+   ```bash
+   flutter pub get
+   ```
+3. Configurer Firebase :
+   - Créer un projet Firebase
+   - Ajouter une application Android/iOS
+   - Télécharger le fichier de configuration
+   - Activer l'authentification par email/mot de passe
+   - Activer Cloud Firestore
+
+4. Configurer Google Maps :
+   - Obtenir une clé API Google Maps
+   - Ajouter la clé dans AndroidManifest.xml et Info.plist
+
+5. Lancer l'application :
+   ```bash
+   flutter run
+   ```
+
+## Structure du projet
+
+```
+lib/
+├── models/          # Modèles de données
+├── screens/         # Écrans de l'application
+│   ├── auth/        # Écrans d'authentification
+│   ├── home/        # Écran principal
+│   ├── shopping/     # Gestion des listes
+│   └── stores/       # Gestion des magasins
+├── services/        # Services (Auth, Firebase, etc.)
+├── utils/           # Utilitaires
+└── widgets/         # Widgets réutilisables
+```
+
+## Base de données
+
+Structure Firestore :
+
+```
+users/
+ ├── userId/
+     ├── profile/
+     ├── shoppingLists/
+     │   ├── listId/
+     │       ├── name
+     │       ├── items/
+     │           ├── itemId/
+     │               ├── name
+     │               ├── category
+     │               ├── quantity
+     │               └── purchased
+     └── favoriteStores/
+         ├── storeId/
+             ├── name
+             ├── location
+             └── radius
+```

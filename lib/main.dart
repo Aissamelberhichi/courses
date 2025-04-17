@@ -1,34 +1,54 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart'; // Importez votre écran d'accueil
-import 'screens/login_screen.dart'; // Importez votre écran de connexion
-import 'screens/SignUpScreen.dart'; // Importez votre écran d'inscription
-import 'screens/list_screen.dart'; // Importez votre écran de gestion des listes
-import 'screens/favorites_screen.dart'; // Importez votre écran de gestion des magasins favoris
-
 import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'services/auth_service.dart';
+import 'screens/auth/login_screen.dart';
+import 'screens/auth/register_screen.dart';
+import 'screens/home/home_screen.dart';
+import 'screens/stores/stores_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  runApp(MyApp());
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Application de Courses',
+      title: 'Liste de Courses',
       theme: ThemeData(
-        primarySwatch: Colors.blue, // Couleur principale de l'application
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
       ),
-      initialRoute: '/login', // Route initiale
+      home: StreamBuilder(
+        stream: AuthService().authStateChanges,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Scaffold(
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+
+          if (snapshot.hasData) {
+            return const HomeScreen();
+          }
+
+          return const LoginScreen();
+        },
+      ),
       routes: {
-        '/': (context) => HomeScreen(), // Écran d'accueil
-        '/login': (context) => LoginScreen(), // Écran de connexion
-        '/signup': (context) => SignUpScreen(), // Écran d'inscription
-        //'/list': (context) => ListScreen(), // Écran de gestion des listes
-        //'/favorites': (context) => FavoritesScreen(), // Écran de gestion des magasins favoris
+        '/login': (context) => const LoginScreen(),
+        '/register': (context) => const RegisterScreen(),
+        '/home': (context) => const HomeScreen(),
+        '/stores': (context) => const StoresScreen(),
       },
     );
   }

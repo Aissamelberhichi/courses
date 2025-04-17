@@ -1,60 +1,39 @@
 import 'package:flutter/material.dart';
+import 'ShoppingListScreen.dart';
+import 'favorite_stores_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  int _selectedIndex = 0;
+
+  final List<Widget> _screens = [
+    const ShoppingListsScreen(), //ShoppingListScreen
+    FavoriteStoresScreen(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Accueil'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout),
-            onPressed: () {
-              // Logique de déconnexion ici
-              Navigator.pushReplacementNamed(context, '/login');
-            },
+      body: _screens[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: (index) => setState(() => _selectedIndex = index),
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_cart),
+            label: 'Listes de courses',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.store),
+            label: 'Magasins favoris',
           ),
         ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Text(
-              'Magasins Favoris',
-              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 10),
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5, // Remplacez par le nombre de magasins favoris
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text(
-                        'Magasin ${index + 1}',
-                      ), // Remplacez par le nom du magasin
-                      subtitle: Text(
-                        'Adresse du magasin',
-                      ), // Remplacez par l'adresse
-                      onTap: () {
-                        // Logique pour naviguer vers les détails du magasin
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                // Naviguer vers l'écran de gestion des listes de courses
-                Navigator.pushNamed(context, '/list');
-              },
-              child: Text('Créer une nouvelle liste de courses'),
-            ),
-          ],
-        ),
       ),
     );
   }
